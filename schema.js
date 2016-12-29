@@ -16,6 +16,16 @@ let schema = new GraphQLSchema({
       },
     },
   }),
+  mutation: new GraphQLObjectType({
+    name: 'RootMutationType',
+    fields: {
+      updateCount: {
+        type: GraphQLInt,
+        description: 'Updates count',
+        resolve: () => count += 1,
+      },
+    },
+  }),
 });
 
 module.exports = schema;
