@@ -1,24 +1,16 @@
-'use strict';
+const express = require('express');
 
-const { graphql, buildSchema } = require('graphql');
+const app = express();
+const PORT = 3000;
 
-const schema = buildSchema(`
-  type Query {
-    foo: String,
-  },
+app.post('/graphql', (req, res) => {
+  res.send('Hello from graphql');
+});
 
-  type Schema {
-    query: Query,
-  }
-`);
+let server = app.listen(PORT, () => {
+  const host = server.address().address;
+  const port = server.address().port;
+  console.log(`server running at http://${host}:${port}`)
+});
 
-const resolvers = {
-  foo: () => 'bar',
-}
 
-const query = `
-query myFirstQuery {
-  foo
-}`;
-
-graphql(schema, query, resolvers).then(console.log).catch(console.log);
